@@ -18,7 +18,7 @@ export default {
     },
     extend: {
       height: {
-        content: 'calc(100vh - 6.5rem)',
+        content: 'calc(100vh - 4rem)',
       },
     },
   },
