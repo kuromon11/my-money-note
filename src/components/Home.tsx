@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { MdAddCircle, MdHistory } from 'react-icons/md';
 
-import InputModal from './InputModal';
+import InputFormModal from './InputFormModal';
 
 const Home: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="h-content  bg-gray p-8">
       <div className="text-center text-xl font-bold">
@@ -28,7 +29,10 @@ const Home: React.FC = () => {
         />
       </div>
       <div className="flex justify-center mt-8">
-        <button className="bg-midnight text-white py-2 px-4 rounded hover:text-tahiti flex items-center">
+        <button
+          onClick={() => setShowModal(true)}
+          className="bg-midnight text-white py-2 px-4 rounded hover:text-tahiti flex items-center"
+        >
           <MdAddCircle />
           <span className="ml-1">登録</span>
         </button>
@@ -37,7 +41,7 @@ const Home: React.FC = () => {
           <span className="ml-1">履歴</span>
         </button>
       </div>
-      <InputModal />
+      {showModal && <InputFormModal close={() => setShowModal(false)} />}
     </div>
   );
 };
