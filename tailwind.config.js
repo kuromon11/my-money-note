@@ -13,8 +13,14 @@ export default {
       silver: '#ecebff',
       bermuda: '#78dcca',
       blue: '#11376b',
+      gray: '#f7f7f7',
+      black: '#000000',
     },
-    extend: {},
+    extend: {
+      height: {
+        content: 'calc(100vh - 6.5rem)',
+      },
+    },
   },
   plugins: [],
 };
