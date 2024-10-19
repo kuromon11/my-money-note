@@ -24,7 +24,7 @@ const Home: React.FC = () => {
       </div>
       <div className="flex justify-center mt-8">
         <img
-          src="src/assets/images/oksign_man.png"
+          src="src/assets/images/household_budget.png"
           className="w-52 h-52 rounded"
         />
       </div>
