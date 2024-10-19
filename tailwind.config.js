@@ -15,6 +15,7 @@ export default {
       blue: '#11376b',
       gray: '#f7f7f7',
       black: '#000000',
+      red: '#ef2828',
     },
     extend: {
       height: {
