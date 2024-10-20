@@ -4,7 +4,11 @@ import { MdOutlineTaskAlt } from 'react-icons/md';
 import { ja } from 'date-fns/locale/ja';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { api } from '../api.ts';
+
 import { Props } from '../types/inputFormModal.ts';
+
+import { generateRandomID } from '../utils/random.ts';
 
 registerLocale('ja', ja);
 
@@ -14,6 +18,7 @@ const InputFormModal: React.FC<Props> = (props) => {
   const [amount, setAmount] = useState(0);
   const [item, setItem] = useState('');
   const isDisabled = !balanceType || !date || !item;
+  const payload = { date, amount, item, balance_type: balanceType };
   const { close } = props;
 
   const changeBalanceType = (value: string) => {
@@ -121,7 +126,9 @@ const InputFormModal: React.FC<Props> = (props) => {
           </div>
           <div className="flex items-center justify-end mt-8">
             <button
-              onClick={() => {
+            onClick={async () => {
+              const params = { id: generateRandomID(), ...payload };
+              await api('POST /data', params);
                 close();
               }}
               className="w-full bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:text-tahiti disabled:text-tahiti disabled:opacity-50"
