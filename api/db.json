@@ -1,29 +1,22 @@
 {
   "data": [
     {
-      "id": "9QEzduAhu3zMZL5N",
-      "date": "2024-08-10",
-      "amount": 5000,
-      "item": "電気代",
-      "balance_type": "expense"
-    },
-    {
       "id": "JAetKTJPUp9bYJd6",
-      "date": "2024-08-25",
-      "amount": 250000,
+      "date": "2024-08-10",
+      "amount": 300000,
       "item": "給与",
       "balance_type": "income"
     },
     {
       "id": "KMpBM38HwHZhM9kY",
-      "date": "2024-09-10",
+      "date": "2024-10-15",
       "amount": 5000,
       "item": "電気代",
       "balance_type": "expense"
     },
     {
       "id": "2fxUd3nNkMWMZLWp",
-      "date": "2024-09-25",
+      "date": "2024-10-10",
       "amount": 250000,
       "item": "給与",
       "balance_type": "income"
