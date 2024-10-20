@@ -2,7 +2,45 @@ import React, { useState } from 'react';
 
 import { MdAddCircle, MdHistory } from 'react-icons/md';
 
+import { Data } from '../types/api.ts';
+
 import InputFormModal from './InputFormModal';
+
+const fetchDisplayData = (householdAccounts: Data[]) => {
+  const today = new Date().toLocaleDateString('ja-JP').split('/').join('-');
+  const thisMonth = new Date()
+    .toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: '2-digit',
+    })
+    .split('/')
+    .join('-');
+
+  const todayData = householdAccounts.filter((data) => data.date === today);
+  const todayBalance = todayData.reduce((acc, cur) => {
+    return cur.balance_type === 'expense' ? acc - cur.amount : acc + cur.amount;
+  }, 0);
+  const todayBalanceNumber = todayData.length;
+
+  const thisMonthData = householdAccounts.filter(
+    (data) => data.date.slice(0, 7) === thisMonth
+  );
+  const thisMonthBalance = thisMonthData.reduce((acc, cur) => {
+    return cur.balance_type === 'expense' ? acc - cur.amount : acc + cur.amount;
+  }, 0);
+  const thisMonthBalanceNumber = thisMonthData.length;
+
+  const totalBalance = householdAccounts.reduce((acc, cur) => {
+    return cur.balance_type === 'expense' ? acc - cur.amount : acc + cur.amount;
+  }, 0);
+  return {
+    todayBalance,
+    todayBalanceNumber,
+    thisMonthBalance,
+    thisMonthBalanceNumber,
+    totalBalance,
+  };
+};
 
 const Home: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
