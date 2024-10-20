@@ -1,5 +1,5 @@
 export type Props = {
-  type: string;
+  balance_type: string;
   date: string | null;
   amount: number;
   item: string;
