@@ -1,42 +1,6 @@
+import { Data, ReqAndRes } from './types/api.ts';
+
 export const ENDPOINT = import.meta.env.VITE_BASE_URL;
-
-export type Data = {
-  id: string;
-  balance_type: string;
-  item: string;
-  amount: number;
-  date: string;
-};
-
-export type ReqAndRes = {
-  'GET /data': {
-    request: null;
-    response: {
-      data: Data[];
-      status: number;
-    };
-  };
-  'POST /data': {
-    request: Data;
-    response: {
-      data: Data;
-      status: number;
-    };
-  };
-  'PUT /data': {
-    request: Data;
-    response: {
-      data: Data;
-      status: number;
-    };
-  };
-  'DELETE /data': {
-    request: null;
-    response: {
-      status: number;
-    };
-  };
-};
 
 export const getOption = (method: string, path: string, payload: Data) => {
   const { id } = payload;
