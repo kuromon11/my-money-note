@@ -4,16 +4,9 @@ import { MdOutlineTaskAlt } from 'react-icons/md';
 import { ja } from 'date-fns/locale/ja';
 import 'react-datepicker/dist/react-datepicker.css';
 
-registerLocale('ja', ja);
+import { Props } from '../types/inputFormModal.ts';
 
-interface Props {
-  type: string;
-  date: string | null;
-  amount: number;
-  item: string;
-  isDisabled: boolean;
-  close: () => void;
-}
+registerLocale('ja', ja);
 
 const InputFormModal: React.FC<Props> = (props) => {
   const [balanceType, setBalanceType] = useState('expense');
