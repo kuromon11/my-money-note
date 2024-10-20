@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { MdAddCircle, MdHistory } from 'react-icons/md';
 
@@ -100,9 +101,11 @@ const Home: React.FC = () => {
           <MdAddCircle />
           <span className="ml-1">登録</span>
         </button>
-        <button className="bg-metal text-white py-2 px-4 ml-8 rounded hover:text-tahiti flex items-center">
-          <MdHistory />
-          <span className="ml-1">履歴</span>
+        <button className="bg-metal text-white  ml-8 rounded hover:text-tahiti">
+          <Link className="py-2 px-4 flex items-center" to="history">
+            <MdHistory />
+            <span className="ml-1">履歴</span>
+          </Link>
         </button>
       </div>
       {showModal && (
