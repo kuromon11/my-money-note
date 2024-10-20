@@ -12,10 +12,8 @@ const InputFormModal: React.FC<Props> = (props) => {
   const [balanceType, setBalanceType] = useState('expense');
   const [date, setDate] = useState(new Date().toLocaleDateString('ja-JP'));
   const [amount, setAmount] = useState(0);
-  const [description, setDescription] = useState('');
-
-  const isDisabled = !balanceType || !date || !description;
-
+  const [item, setItem] = useState('');
+  const isDisabled = !balanceType || !date || !item;
   const { close } = props;
 
   const changeBalanceType = (value: string) => {
@@ -30,8 +28,8 @@ const InputFormModal: React.FC<Props> = (props) => {
     if (String(value).replace(/[^0-9]/g, '').length === 0) return;
     setAmount(value);
   };
-  const changeDescription = (value: string) => {
-    setDescription(value);
+  const changeItem = (value: string) => {
+    setItem(value);
   };
 
   return (
@@ -115,8 +113,8 @@ const InputFormModal: React.FC<Props> = (props) => {
             <input
               type="text"
               id="category"
-              value={description}
-              onChange={(e) => changeDescription(e.target.value)}
+            value={item}
+            onChange={(e) => changeItem(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="例：コンビニ、ランチ代、電気代、給与"
             />
