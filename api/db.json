@@ -2,31 +2,31 @@
   "data": [
     {
       "id": "9QEzduAhu3zMZL5N",
-      "item": "電気代",
-      "balance_type": "expense",
+      "date": "2024-08-10",
       "amount": 5000,
-      "date": "2024-08-10"
+      "item": "電気代",
+      "balance_type": "expense"
     },
     {
       "id": "JAetKTJPUp9bYJd6",
-      "item": "給与",
-      "balance_type": "income",
+      "date": "2024-08-25",
       "amount": 250000,
-      "date": "2024-08-25"
+      "item": "給与",
+      "balance_type": "income"
     },
     {
       "id": "KMpBM38HwHZhM9kY",
-      "item": "電気代",
-      "balance_type": "expense",
+      "date": "2024-09-10",
       "amount": 5000,
-      "date": "2024-09-10"
+      "item": "電気代",
+      "balance_type": "expense"
     },
     {
       "id": "2fxUd3nNkMWMZLWp",
-      "item": "給与",
-      "balance_type": "income",
+      "date": "2024-09-25",
       "amount": 250000,
-      "date": "2024-09-25"
+      "item": "給与",
+      "balance_type": "income"
     }
   ]
 }
