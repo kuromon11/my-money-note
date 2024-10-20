@@ -4,24 +4,25 @@ export const ENDPOINT = import.meta.env.VITE_BASE_URL;
 
 export const getOption = (method: string, path: string, payload: Data) => {
   const { id } = payload;
-  const resource = id ? `${path}/${id}` : `${path}`;
   switch (method) {
     case 'GET':
-      return { resource };
+      return { method, resource: path };
     case 'POST':
       return {
-        resource,
+        method,
+        resource: path,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       };
     case 'PUT':
       return {
-        resource,
+        method,
+        resource: `${path}/${id}`,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       };
     case 'DELETE':
-      return { resource };
+      return { method, resource: `${path}/${id}` };
     default:
       return {};
   }
