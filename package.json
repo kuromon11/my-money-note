@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "api": "json-server --watch ./api/db.json",
+    "api": "json-server --watch ./src/api/db.json",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
