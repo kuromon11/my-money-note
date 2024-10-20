@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { MdAddCircle, MdHistory } from 'react-icons/md';
+
+import { api } from '../api.ts';
 
 import { Data } from '../types/api.ts';
 
@@ -43,22 +45,46 @@ const fetchDisplayData = (householdAccounts: Data[]) => {
 };
 
 const Home: React.FC = () => {
+  const [todayBalance, setTodayBalance] = useState(0);
+  const [todayBalanceNumber, setTodayBalanceNumber] = useState(0);
+  const [thisMonthBalance, setThisMonthBalance] = useState(0);
+  const [thisMonthBalanceNumber, setThisMonthBalanceNumber] = useState(0);
+  const [totalBalance, setTotalBalance] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const { data } = await api('GET /data');
+      const displayData = fetchDisplayData(data);
+      setTodayBalance(displayData.todayBalance);
+      setTodayBalanceNumber(displayData.todayBalanceNumber);
+      setThisMonthBalance(displayData.thisMonthBalance);
+      setThisMonthBalanceNumber(displayData.thisMonthBalanceNumber);
+      setTotalBalance(displayData.totalBalance);
+    })();
+  }, []);
   return (
     <div className="h-content  bg-gray p-8">
       <div className="text-center text-xl font-bold">
         <span>本日の収支</span>
-        <span className="ml-2">1件</span>
-        <span className="text-red ml-2">-1,234円</span>
+        <span className="ml-2">{todayBalanceNumber.toLocaleString()}件</span>
+        <span className={todayBalance < 0 ? 'text-red ml-2' : 'ml-2'}>
+          {todayBalance.toLocaleString()}円
+        </span>
       </div>
       <div className="text-center text-xl font-bold mt-4">
         <span>今月の収支</span>
-        <span className="ml-2">10件</span>
-        <span className="text-red ml-2">-12,345円</span>
+        <span className="ml-2">
+          {thisMonthBalanceNumber.toLocaleString()}件
+        </span>
+        <span className={thisMonthBalance < 0 ? 'text-red ml-2' : 'ml-2'}>
+          {thisMonthBalance.toLocaleString()}円
+        </span>
       </div>
       <div className="text-center text-3xl font-bold mt-8">
         <span>残高</span>
-        <span className="ml-2">1,234,567円</span>
+        <span className={totalBalance < 0 ? 'text-red ml-2' : 'ml-2'}>
+          {totalBalance.toLocaleString()}円
+        </span>
       </div>
       <div className="flex justify-center mt-8">
         <img
