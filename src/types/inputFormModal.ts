@@ -5,4 +5,5 @@ export type Props = {
   item: string;
   isDisabled: boolean;
   close: () => void;
+  addData: () => void;
 };

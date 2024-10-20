@@ -21,7 +21,7 @@ const InputFormModal: React.FC<Props> = (props) => {
   const [item, setItem] = useState('');
   const isDisabled = !balanceType || !date || !item;
   const payload = { date, amount, item, balance_type: balanceType };
-  const { close } = props;
+  const { addData, close } = props;
 
   const changeBalanceType = (value: string) => {
     setBalanceType(value);
@@ -131,6 +131,7 @@ const InputFormModal: React.FC<Props> = (props) => {
             onClick={async () => {
               const params = { id: generateRandomID(), ...payload };
               await api('POST /data', params);
+              await addData();
               close();
             }}
             className="w-full bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:text-tahiti disabled:text-tahiti disabled:opacity-50"

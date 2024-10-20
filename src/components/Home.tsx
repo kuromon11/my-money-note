@@ -105,7 +105,27 @@ const Home: React.FC = () => {
           <span className="ml-1">履歴</span>
         </button>
       </div>
-      {showModal && <InputFormModal close={() => setShowModal(false)} />}
+      {showModal && (
+        <InputFormModal
+          balance_type=""
+          date={new Date().toLocaleDateString('ja-JP')}
+          amount={0}
+          item=""
+          isDisabled={false}
+          close={() => setShowModal(false)}
+          addData={() => {
+            (async () => {
+              const { data } = await api('GET /data');
+              const displayData = fetchDisplayData(data);
+              setTodayBalance(displayData.todayBalance);
+              setTodayBalanceNumber(displayData.todayBalanceNumber);
+              setThisMonthBalance(displayData.thisMonthBalance);
+              setThisMonthBalanceNumber(displayData.thisMonthBalanceNumber);
+              setTotalBalance(displayData.totalBalance);
+            })();
+          }}
+        />
+      )}
     </div>
   );
 };
