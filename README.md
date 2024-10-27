@@ -1,54 +1,61 @@
-# my-money-note
+# 家計簿アプリ My Money Note
 
 ## About
+- 収支を管理するアプリケーション
+- 収支の一覧表示、収支の登録・編集・削除ができる
+- 現在の残高、当日と当月の収支を確認できる
 
-## React + TypeScript + Vite
+## 技術スタック
+- React 18.3.1
+- React Router 6.27.0
+- TypeScript 5.5.4
+- TailwindCSS 3.4.13
+- Vite 5.4.8
+- JSON Server 1.0.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 機能一覧
+### 全体
+- ホーム画面
+- 履歴画面
 
-Currently, two official plugins are available:
+### ホーム画面
+- 当日と当月の収支
+- 現在の残高
+- 収支の登録
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 履歴画面
+- 収支の一覧表示
+- 収支の編集・削除
+- 収支の絞り込み表示
+- 収支の並び替え表示
 
-### Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
+### データ構成
+```json
+{
+  "data": [
+    {
+      "id": "2fxUd3nNkMWMZLWp",
+      "date": "2024-10-10",
+      "amount": 280000,
+      "item": "給与",
+      "balance_type": "income"
     },
-  },
-})
+    {
+      "id": "KMpBM38HwHZhM9kY",
+      "date": "2024-10-15",
+      "amount": 5000,
+      "item": "電気代",
+      "balance_type": "expense"
+    },
+
+    {
+      "id": "NdJrjlTCriTJUBfd",
+      "date": "2024-10-21",
+      "amount": 10000,
+      "item": "飲み代",
+      "balance_type": "expense"
+    },
+  ]
+}
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
