@@ -26,3 +26,4 @@ dist-ssr
 # 後から追加
 .tool-versions
 .env
+src/api/db.json
