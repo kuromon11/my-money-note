@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdEdit, MdDelete } from 'react-icons/md';
 
 import { Data } from '../types/api.ts';
 
@@ -41,11 +42,13 @@ const HouseholdAccounts: React.FC<Props & { keyName: string }> = ({
                 内容
               </th>
               <th
-                className="w-2/6 py-2 px-4 border-b hover:text-tahiti  cursor-pointer"
+                className="w-3/12 py-2 px-4 border-b hover:text-tahiti  cursor-pointer"
                 onClick={() => sortHouseholdAccounts('amount')}
               >
                 金額
               </th>
+              <th className="w-1/24 py-2 px-4 border-b"></th>
+              <th className="w-1/24 py-2 px-4 border-b"></th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +66,16 @@ const HouseholdAccounts: React.FC<Props & { keyName: string }> = ({
                   {balance_type === 'income' && (
                     <span>{`+${amount.toLocaleString()}円`}</span>
                   )}
+                </td>
+                <td className="py-2 px-4 border-b">
+                  <button>
+                    <MdEdit />
+                  </button>
+                </td>
+                <td className="py-2 px-4 border-b">
+                  <button>
+                    <MdDelete />
+                  </button>
                 </td>
               </tr>
             ))}
