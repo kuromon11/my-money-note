@@ -9,7 +9,7 @@ type Order = {
   order: 'asc' | 'desc';
 };
 
-import HouseholdAccountFilter from './HouseholdAccountFilter.tsx';
+// import HouseholdAccountFilter from './HouseholdAccountFilter.tsx';
 import HouseholdAccounts from './HouseholdAccounts.tsx';
 
 const History: React.FC = () => {
@@ -73,7 +73,7 @@ const History: React.FC = () => {
       <div className="p-8 flex justify-center">
         <h2 className="text-xl font-bold">合計金額: {totalBalance}円</h2>
       </div>
-      <HouseholdAccountFilter />
+      {/* <HouseholdAccountFilter householdAccounts={householdAccounts} /> */}
       <HouseholdAccounts
         householdAccounts={householdAccounts}
         keyName={order.keyName}
