@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
-import { MdOutlineTaskAlt } from 'react-icons/md';
+import { MdOutlineTaskAlt, MdDelete } from 'react-icons/md';
 import { ja } from 'date-fns/locale/ja';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -20,8 +20,7 @@ const InputFormModal: React.FC<Props> = (props) => {
   const [amount, setAmount] = useState(0);
   const [item, setItem] = useState('');
   const isDisabled = !balanceType || !date || !item;
-  const payload = { date, amount, item, balance_type: balanceType };
-  const { addData, close } = props;
+  const { addData, updateData, deleteData, close } = props;
 
   const changeBalanceType = (value: string) => {
     setBalanceType(value);
@@ -38,6 +37,16 @@ const InputFormModal: React.FC<Props> = (props) => {
   const changeItem = (value: string) => {
     setItem(value);
   };
+
+  useEffect(() => {
+    (async () => {
+      const { balance_type, date, amount, item } = props;
+      changeBalanceType(balance_type);
+      changeDate(date);
+      changeAmount(amount);
+      changeItem(item);
+    })();
+  }, []);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
