@@ -124,6 +124,7 @@ const Home: React.FC = () => {
       </div>
       {showModal && (
         <InputFormModal
+          id=""
           balance_type=""
           date={new Date().toLocaleDateString('ja-JP')}
           amount={0}
