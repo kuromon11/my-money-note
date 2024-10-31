@@ -15,7 +15,14 @@ registerLocale('ja', ja);
 const InputFormModal: React.FC<Props> = (props) => {
   const [balanceType, setBalanceType] = useState('expense');
   const [date, setDate] = useState(
-    new Date().toLocaleDateString('ja-JP').split('/').join('-')
+    new Date()
+      .toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('/')
+      .join('-')
   );
   const [amount, setAmount] = useState(0);
   const [item, setItem] = useState('');
@@ -27,7 +34,14 @@ const InputFormModal: React.FC<Props> = (props) => {
   };
   const changeDate = (value: Date | null) => {
     if (!value) return;
-    const date = value.toLocaleDateString('ja-JP').split('/').join('-');
+    const date = value
+      .toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('/')
+      .join('-');
     setDate(date);
   };
   const changeAmount = (value: number) => {
