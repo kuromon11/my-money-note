@@ -55,10 +55,11 @@ const InputFormModal: React.FC<Props> = (props) => {
   useEffect(() => {
     (async () => {
       const { balance_type, date, amount, item } = props;
-      changeBalanceType(balance_type);
-      changeDate(date);
-      changeAmount(amount);
-      changeItem(item);
+
+      setBalanceType(balance_type);
+      setDate(date);
+      setAmount(amount);
+      setItem(item);
     })();
   }, []);
 
@@ -152,9 +153,21 @@ const InputFormModal: React.FC<Props> = (props) => {
         <div className="flex items-center justify-end mt-8">
           <button
             onClick={async () => {
-              const params = { id: generateRandomID(), ...payload };
-              await api('POST /data', params);
-              await addData();
+              const payload = {
+                date: date.split('/').join('-'),
+                amount,
+                item,
+                balance_type: balanceType,
+              };
+              const id = props.id ? props.id : generateRandomID();
+              const params = { id, ...payload };
+              if (props.id) {
+                await api('PUT /data', params);
+                await updateData();
+              } else {
+                await api('POST /data', params);
+                await addData();
+              }
               close();
             }}
             className="w-full bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:text-tahiti disabled:text-tahiti disabled:opacity-50"
@@ -163,6 +176,22 @@ const InputFormModal: React.FC<Props> = (props) => {
             <MdOutlineTaskAlt className="inline-block" />
             <span className="ml-1">確定</span>
           </button>
+        </div>
+        <div className="flex items-center justify-end mt-8">
+          {props.id && (
+            <button
+              onClick={async () => {
+                const { id } = props;
+                await api(`DELETE /data`, { id });
+                await deleteData();
+                close();
+              }}
+              className="w-full bg-red hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:text-tahiti disabled:text-tahiti disabled:opacity-50"
+            >
+              <MdDelete className="inline-block" />
+              <span className="ml-1">削除</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
