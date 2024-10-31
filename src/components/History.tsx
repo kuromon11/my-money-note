@@ -80,8 +80,13 @@ const History: React.FC = () => {
 
   return (
     <>
-      <div className="p-8 flex justify-center">
-        <h2 className="text-xl font-bold">合計金額: {totalBalance}円</h2>
+      <div className="px-8 pt-8 flex justify-center">
+        <h2 className="text-xl font-bold">
+          合計金額:
+          <span className={totalBalance < 0 ? 'text-red ml-2' : 'ml-2'}>
+            {totalBalance}円
+          </span>
+        </h2>
       </div>
       {/* <HouseholdAccountFilter householdAccounts={householdAccounts} /> */}
       <HouseholdAccounts
