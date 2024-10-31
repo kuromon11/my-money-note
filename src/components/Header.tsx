@@ -10,7 +10,11 @@ const Header: React.FC = () => {
   const linkText = pathname === '/' ? '履歴' : 'ホームに戻る';
   return (
     <header className="bg-blue text-white p-4 flex">
-      <h1 className="text-xl font-bold">My Money Note</h1>
+      <h1 className="text-xl font-bold hover:text-tahiti">
+        <Link className="px-2 py-1 flex items-center" to="/">
+          My Money Note
+        </Link>
+      </h1>
       <button className="bg-blue text-white rounded ml-auto hover:text-tahiti">
         <Link className="px-2 py-1 flex items-center" to={path}>
           {icon}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
-import { MdOutlineTaskAlt } from 'react-icons/md';
+import { MdOutlineTaskAlt, MdDelete } from 'react-icons/md';
 import { ja } from 'date-fns/locale/ja';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -15,20 +15,33 @@ registerLocale('ja', ja);
 const InputFormModal: React.FC<Props> = (props) => {
   const [balanceType, setBalanceType] = useState('expense');
   const [date, setDate] = useState(
-    new Date().toLocaleDateString('ja-JP').split('/').join('-')
+    new Date()
+      .toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('/')
+      .join('-')
   );
   const [amount, setAmount] = useState(0);
   const [item, setItem] = useState('');
   const isDisabled = !balanceType || !date || !item;
-  const payload = { date, amount, item, balance_type: balanceType };
-  const { addData, close } = props;
+  const { addData, updateData, deleteData, close } = props;
 
   const changeBalanceType = (value: string) => {
     setBalanceType(value);
   };
   const changeDate = (value: Date | null) => {
     if (!value) return;
-    const date = value.toLocaleDateString('ja-JP').split('/').join('-');
+    const date = value
+      .toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('/')
+      .join('-');
     setDate(date);
   };
   const changeAmount = (value: number) => {
@@ -38,6 +51,17 @@ const InputFormModal: React.FC<Props> = (props) => {
   const changeItem = (value: string) => {
     setItem(value);
   };
+
+  useEffect(() => {
+    (async () => {
+      const { balance_type, date, amount, item } = props;
+
+      setBalanceType(balance_type);
+      setDate(date);
+      setAmount(amount);
+      setItem(item);
+    })();
+  }, []);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -129,9 +153,21 @@ const InputFormModal: React.FC<Props> = (props) => {
         <div className="flex items-center justify-end mt-8">
           <button
             onClick={async () => {
-              const params = { id: generateRandomID(), ...payload };
-              await api('POST /data', params);
-              await addData();
+              const payload = {
+                date: date.split('/').join('-'),
+                amount,
+                item,
+                balance_type: balanceType,
+              };
+              const id = props.id ? props.id : generateRandomID();
+              const params = { id, ...payload };
+              if (props.id) {
+                await api('PUT /data', params);
+                await updateData();
+              } else {
+                await api('POST /data', params);
+                await addData();
+              }
               close();
             }}
             className="w-full bg-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:text-tahiti disabled:text-tahiti disabled:opacity-50"
@@ -140,6 +176,22 @@ const InputFormModal: React.FC<Props> = (props) => {
             <MdOutlineTaskAlt className="inline-block" />
             <span className="ml-1">確定</span>
           </button>
+        </div>
+        <div className="flex items-center justify-end mt-8">
+          {props.id && (
+            <button
+              onClick={async () => {
+                const { id } = props;
+                await api(`DELETE /data`, { id });
+                await deleteData();
+                close();
+              }}
+              className="w-full bg-red hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:text-tahiti disabled:text-tahiti disabled:opacity-50"
+            >
+              <MdDelete className="inline-block" />
+              <span className="ml-1">削除</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

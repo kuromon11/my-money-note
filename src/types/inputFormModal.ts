@@ -1,4 +1,5 @@
 export type Props = {
+  id: string;
   balance_type: string;
   date: string | null;
   amount: number;
@@ -6,4 +7,6 @@ export type Props = {
   isDisabled: boolean;
   close: () => void;
   addData: () => void;
+  updateData: () => void;
+  deleteData: () => void;
 };

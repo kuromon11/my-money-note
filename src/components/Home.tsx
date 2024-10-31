@@ -88,10 +88,24 @@ const Home: React.FC = () => {
         </span>
       </div>
       <div className="flex justify-center mt-8">
-        <img
-          src="src/assets/images/household_budget.png"
-          className="w-52 h-52 rounded"
-        />
+        {todayBalanceNumber > 0 && totalBalance > 0 && (
+          <img
+            src="src/assets/images/oksign_man.png"
+            className="w-52 h-52 rounded"
+          />
+        )}
+        {todayBalanceNumber > 0 && totalBalance < 0 && (
+          <img
+            src="src/assets/images/negarive_man.png"
+            className="w-52 h-52 rounded"
+          />
+        )}
+        {todayBalanceNumber === 0 && (
+          <img
+            src="src/assets/images/sleep_man.png"
+            className="w-52 h-52 rounded"
+          />
+        )}
       </div>
       <div className="flex justify-center mt-8">
         <button
@@ -110,6 +124,7 @@ const Home: React.FC = () => {
       </div>
       {showModal && (
         <InputFormModal
+          id=""
           balance_type=""
           date={new Date().toLocaleDateString('ja-JP')}
           amount={0}

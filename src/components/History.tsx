@@ -4,12 +4,14 @@ import { api } from '../api.ts';
 
 import { Data } from '../types/api.ts';
 
+import InputFormModal from './InputFormModal';
+
 type Order = {
   keyName: 'balance_type' | 'date' | 'item' | 'amount';
   order: 'asc' | 'desc';
 };
 
-import HouseholdAccountFilter from './HouseholdAccountFilter.tsx';
+// import HouseholdAccountFilter from './HouseholdAccountFilter.tsx';
 import HouseholdAccounts from './HouseholdAccounts.tsx';
 
 const History: React.FC = () => {
@@ -18,6 +20,14 @@ const History: React.FC = () => {
   const [order, setOrder] = useState<Order>({
     keyName: 'date',
     order: 'desc',
+  });
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [targetData, setTargetData] = useState<Data>({
+    id: '',
+    balance_type: 'expense',
+    date: '',
+    amount: 0,
+    item: '',
   });
 
   const sortHouseholdAccounts = (keyName: Order['keyName']) => {
@@ -70,17 +80,71 @@ const History: React.FC = () => {
 
   return (
     <>
-      <div className="p-8 flex justify-center">
-        <h2 className="text-xl font-bold">合計金額: {totalBalance}円</h2>
+      <div className="px-8 pt-8 flex justify-center">
+        <h2 className="text-xl font-bold">
+          合計金額:
+          <span className={totalBalance < 0 ? 'text-red ml-2' : 'ml-2'}>
+            {totalBalance}円
+          </span>
+        </h2>
       </div>
-      <HouseholdAccountFilter />
+      {/* <HouseholdAccountFilter householdAccounts={householdAccounts} /> */}
       <HouseholdAccounts
         householdAccounts={householdAccounts}
         keyName={order.keyName}
         sortHouseholdAccounts={(keyName: Order['keyName']) =>
           sortHouseholdAccounts(keyName)
         }
+        clickEditButton={(id: string) => {
+          const data = householdAccounts.find((data) => data.id === id);
+          if (!data) return;
+          setTargetData(data);
+          setShowEditModal(true);
+        }}
       />
+      {showEditModal && (
+        <InputFormModal
+          id={targetData.id}
+          balance_type={targetData.balance_type}
+          date={targetData?.date}
+          amount={targetData?.amount}
+          item={targetData?.item}
+          isDisabled={false}
+          close={() => setShowEditModal(false)}
+          updateData={() => {
+            (async () => {
+              const { data } = await api('GET /data');
+              data.sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              );
+              setHouseholdAccounts(data);
+              const totalBalance = data.reduce((acc, cur) => {
+                return cur.balance_type === 'expense'
+                  ? acc - cur.amount
+                  : acc + cur.amount;
+              }, 0);
+              setTotalBalance(totalBalance);
+            })();
+          }}
+          deleteData={() => {
+            (async () => {
+              const { data } = await api('GET /data');
+              data.sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              );
+              setHouseholdAccounts(data);
+              const totalBalance = data.reduce((acc, cur) => {
+                return cur.balance_type === 'expense'
+                  ? acc - cur.amount
+                  : acc + cur.amount;
+              }, 0);
+              setTotalBalance(totalBalance);
+            })();
+          }}
+        />
+      )}
     </>
   );
 };
