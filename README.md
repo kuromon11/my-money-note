@@ -28,7 +28,25 @@
 - 収支の編集・削除
 - 収支の並び替え表示
 
-### データ構成
+## プレビュー
+
+### ホーム画面
+
+![home](https://github.com/user-attachments/assets/eda5d1b4-91a0-4aa6-93a9-5f17c71a14bd)
+
+### 登録モーダル
+
+![createModal](https://github.com/user-attachments/assets/99b43956-3390-41a0-8089-e801b7b2b59f)
+
+### 履歴画面
+
+![history](https://github.com/user-attachments/assets/524bbb1b-c005-4d03-9cdc-5405cf0dce90)
+
+### 編集モーダル
+
+![editModal](https://github.com/user-attachments/assets/79cef90b-a431-43dc-8ff8-f095dff9c3b6)
+
+## データ構成
 ```json
 {
   "data": [
