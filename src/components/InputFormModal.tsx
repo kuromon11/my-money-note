@@ -74,7 +74,9 @@ const InputFormModal: React.FC<Props> = (props) => {
         >
           &times;
         </button>
-        <h2 className="text-xl font-semibold mb-4">収支登録</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {props.id ? '編集' : '登録'}
+        </h2>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             収入/支出
