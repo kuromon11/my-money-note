@@ -79,7 +79,7 @@ const History: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <section className="h-content bg-gray p-8">
       <div className="px-8 pt-8 flex justify-center">
         <h2 className="text-xl font-bold">
           合計金額:
@@ -145,7 +145,7 @@ const History: React.FC = () => {
           }}
         />
       )}
-    </>
+    </section>
   );
 };
 
