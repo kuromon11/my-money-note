@@ -13,6 +13,42 @@
 - Vite 5.4.8
 - JSON Server 1.0.0
 
+## 環境構築
+### 前提条件
+- Gitがインストールされていること（`git --version`）
+- node.jsがインストールされていること（`node -v`）
+  - 筆者の環境は`v20.18.0`です。これより古いバージョンだと、うまく動作しない可能性があります。
+
+### 手順
+- 本リポジトリをクローンしてください
+```bash
+git clone https://github.com/kuromon11/my-money-note.git
+```
+- 本リポジトリのディレクトリに移動してください
+```bash
+cd my-money-note
+```
+- パッケージをインストールしてください
+```bash
+npm ci
+```
+- 環境設定用のファイルをコピーしてください
+```bash
+cp .env.example .env
+```
+- サンプルデータをコピーしてください
+```bash
+cp src/api/db.json.sample src/api/db.json
+```
+- APIサーバーを立ち上げてください
+```bash
+npm run api
+```
+- 別のターミナルを開き、アプリケーションのサーバーを立ち上げてください
+```bash
+npm run dev
+```
+
 ## 機能一覧
 ### 全体
 - ホーム画面
@@ -75,4 +111,3 @@
   ]
 }
 ```
-
